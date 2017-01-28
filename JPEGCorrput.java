@@ -25,6 +25,9 @@ class JPEGCorrupt {
 	public static void main(String[] args){
 		try {
 			
+			// $ java JPEGCorrupt in.mov out.mov -v <section> <section index> <frequency>
+			// Process a MJPEG-encoded video and for each frame modify bytes in $section
+			//	with a certain $frequency according to the function eval()
 			if (args.length >= 5 && args[2].equals("-v")){
 				MJPEG video = new MJPEG(args[0]);
 				video.process(args[3], Integer.valueOf(args[4]), Float.valueOf(args[5]), 
@@ -36,8 +39,10 @@ class JPEGCorrupt {
 						}
 					});
 				video.save(args[1]);
+				return;
 			}
-			// inline mode, format = input.jpg -i output.jpg <action> <action args>
+
+			// inline mode, format = input.jpg output.jpg -i <action> <action args>
 			// actions:
 			//	-e : edit | {-e <Section type> <Seciton index> <Byte index> <New Value>}
 			//	-ex : exhaustive | 
